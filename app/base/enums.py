@@ -3,5 +3,5 @@ from enum import Enum
 
 class SexEnum(Enum):
     MALE = "MALE"
-    FEMALE = "FEMALE",
+    FEMALE = ("FEMALE",)
     OTHER = "OTHER"
