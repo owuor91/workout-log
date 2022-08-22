@@ -2,7 +2,7 @@ import datetime
 
 import flask_bcrypt
 from flask import request
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required
 from flask_restful import Resource
 
 from app.base.exceptions import BadRequest
@@ -83,6 +83,7 @@ class UserLogin(Resource):
 class ProfileResource(Resource):
     schema = ProfileSchema()
 
+    @jwt_required()
     def post(self):
         data = request.get_json()
 
@@ -98,12 +99,14 @@ class ProfileResource(Resource):
         except Exception as e:
             return {"error": e.args}, 500
 
+    @jwt_required()
     def get(self, pk):
         profile = get(Profile, pk)
         if profile is not None:
             return self.schema.dump(profile), 200
         return {"error": "profile not found"}, 404
 
+    @jwt_required()
     def put(self, pk):
         profile = get(Profile, pk)
         if profile is not None:
