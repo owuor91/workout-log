@@ -27,25 +27,32 @@ class BaseModel:
     meta = Column(JSON, nullable=True, default=dict, server_default="{}")
 
 
-def save(self):
+def save(obj):
     """Commit record to db."""
     session = db.session
     try:
-        session.add(self)
+        session.add(obj)
         session.commit()
     except Exception as exc:
         session.rollback()
         logging.exception(exc)
         raise DatabaseError(
-            f"Problem saving {self.__class__.__name__} record in database"
+            f"Problem saving {obj.__class__.__name__} record in database"
         )
 
-    return self
+    return obj
 
 
-def get(self, pk):
+def get(model, pk):
     """
     Get a single record given a pk
     """
     session = db.session
-    return session.query(self).get(pk)
+    return session.query(model).get(pk)
+
+
+def set_model_dict(obj, model_dict):
+    """Set Model Attributes from dict."""
+    for k, v in model_dict.items():
+        getattr(obj, k, setattr(obj, k, v))
+    return obj

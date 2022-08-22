@@ -33,7 +33,8 @@ class Profile(Base):
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
     user_id = Column(
-        UUID(as_uuid=True), ForeignKey("user.user_id"), nullable=False
+        UUID(as_uuid=True), ForeignKey("user.user_id"), nullable=False,
+        unique=True
     )
     sex = Column(Enum(SexEnum), nullable=False)
     date_of_birth = Column(Date, nullable=False)

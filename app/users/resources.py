@@ -6,9 +6,9 @@ from flask_jwt_extended import create_access_token
 from flask_restful import Resource
 
 from app.base.exceptions import BadRequest
-from app.base.models import save
-from app.users.model import User
-from app.users.schemas import UserSchema
+from app.base.models import save, get, set_model_dict
+from app.users.model import User, Profile
+from app.users.schemas import UserSchema, ProfileSchema
 from db import db
 
 
@@ -78,3 +78,40 @@ class UserLogin(Resource):
                 return {"error": "invalid credentials"}, 401
         except Exception as e:
             return {"error": str(e)}, 500
+
+
+class ProfileResource(Resource):
+    schema = ProfileSchema()
+
+    def post(self):
+        data = request.get_json()
+
+        errors = self.schema.validate(data)
+        if errors:
+            return {"error": True, "errors": str(errors)}, 400
+
+        profile = Profile(**data)
+
+        try:
+            save(profile)
+            return self.schema.dump(profile), 201
+        except Exception as e:
+            return {"error": e.args}, 500
+
+    def get(self, pk):
+        profile = get(Profile, pk)
+        if profile is not None:
+            return self.schema.dump(profile), 200
+        return {"error": "profile not found"}, 404
+
+    def put(self, pk):
+        profile = get(Profile, pk)
+        if profile is not None:
+            data = request.get_json()
+            profile = set_model_dict(profile, data)
+            try:
+                save(profile)
+                return self.schema.dump(profile), 200
+            except Exception as e:
+                return {"error": e.args}, 500
+        return {"error": "profile not found"}, 404

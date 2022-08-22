@@ -2,7 +2,7 @@ from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
 
-from app.users.resources import UserRegistration, UserLogin
+from app.users.resources import UserRegistration, UserLogin, ProfileResource
 from db import db
 
 
@@ -22,6 +22,7 @@ def create_app():
 
     api.add_resource(UserRegistration, "/register")
     api.add_resource(UserLogin, "/login")
+    api.add_resource(ProfileResource, "/profile", "/profile/<uuid:pk>")
 
     return app
 

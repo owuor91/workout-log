@@ -1,8 +1,8 @@
 """baseline
 
-Revision ID: c9ffc5bdebfd
+Revision ID: fbc426a6b7d7
 Revises: 
-Create Date: 2022-08-22 12:56:25.677878
+Create Date: 2022-08-22 16:02:29.459985
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = 'c9ffc5bdebfd'
+revision = 'fbc426a6b7d7'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,7 +37,8 @@ def upgrade():
     sa.Column('weight', sa.Float(), nullable=False),
     sa.Column('height', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['user.user_id'], ),
-    sa.PrimaryKeyConstraint('profile_id')
+    sa.PrimaryKeyConstraint('profile_id'),
+    sa.UniqueConstraint('user_id')
     )
     # ### end Alembic commands ###
 
