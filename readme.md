@@ -15,7 +15,7 @@ Supported functionality:
 
 EXAMPLE:
 ```
-http://localhost:3000/register
+http://192.81.215.35/register
 
 {
     "first_name":"Abadan",
@@ -45,7 +45,7 @@ Response:
 
 EXAMPLE:
 ```
-http://localhost:3000/login
+http://192.81.215.35/login
 
 {
     "email": "kano87@gmail.com",
@@ -66,7 +66,7 @@ Response:
 
 EXAMPLE:
 ```
-http://localhost:3000/profile
+http://192.81.215.35/profile
 
 {
     "user_id":"02ccb40e-79dd-4d9a-9df0-0bcc2de4b5f2",
@@ -93,7 +93,7 @@ Response:
 
 EXAMPLE:
 ```
-http://localhost:3000/profile/dd6b9b7b-9064-45aa-b171-cfc631fc9b9d
+http://192.81.215.35/profile/dd6b9b7b-9064-45aa-b171-cfc631fc9b9d
 
 {
     "weight":65
