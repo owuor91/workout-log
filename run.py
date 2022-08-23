@@ -10,7 +10,7 @@ def create_app():
     app = Flask(__name__)
     app.config[
         "SQLALCHEMY_DATABASE_URI"
-    ] = "postgresql+psycopg2://localhost:5432/workout_log"
+    ] = "postgresql+psycopg2:///workout_log"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config['JWT_SECRET_KEY'] = 'xQUwFkHeHWcP6BVE'
     api = Api(app)
@@ -26,6 +26,7 @@ def create_app():
 
     return app
 
+app = create_app()
 
 if __name__ == "__main__":
-    create_app().run(port=3000, debug=True)
+    app.run(debug=True)
