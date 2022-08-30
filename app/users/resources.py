@@ -60,6 +60,8 @@ class UserLogin(Resource):
             email = data["email"]
             password = data["password"]
             user = db.session.query(User).filter(User.email == email).first()
+            profile = db.session.query(Profile).filter(
+                Profile.user_id==user.user_id).first
             if user is not None and flask_bcrypt.check_password_hash(
                 user.password, password
             ):
@@ -72,6 +74,7 @@ class UserLogin(Resource):
                     "message": "login successful",
                     "access_token": access_token,
                     "user_id": str(user.user_id),
+                    "profile_id": str(profile.profile_id)
                 }
                 return response, 200
             else:
