@@ -74,6 +74,7 @@ class UserLogin(Resource):
                     "message": "login successful",
                     "access_token": access_token,
                     "user_id": str(user.user_id),
+                    "profile_id": None
                 }
                 if profile is not None:
                     response["profile_id"] = str(profile.profile_id)
