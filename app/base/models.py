@@ -43,12 +43,14 @@ def save(obj):
     return obj
 
 
-def get(model, pk):
+def get(model, pk=None):
     """
     Get a single record given a pk
     """
     session = db.session
-    return session.query(model).get(pk)
+    if pk is not None:
+        return session.query(model).get(pk)
+    return session.query(model).all()
 
 
 def set_model_dict(obj, model_dict):

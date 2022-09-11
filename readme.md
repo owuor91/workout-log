@@ -110,3 +110,64 @@ Response:
     "weight": 65.0
 }
 ```
+### Exercise Categories
+`GET /exercise-categories`
+
+EXAMPLE:
+```
+http://192.81.215.35/exercise-categories
+```
+Response:
+```
+[
+    {
+        "category_id": "b4ee9800-fa15-496e-b820-f5daa41dc4fd",
+        "category_name": "Chest"
+    },
+    {
+        "category_id": "9ff3ea05-8265-4fdc-9818-f91ef05f19a3",
+        "category_name": "Legs"
+    },
+    {
+        "category_id": "1a51f824-aa80-496d-814c-c6e56297b8a1",
+        "category_name": "Shoulders"
+    },
+    {
+        "category_id": "8d2b9e1c-e6d8-46c6-99a1-d603ffe94f78",
+        "category_name": "Back"
+    }
+]
+```
+### Exercises
+`GET /exercises`
+
+EXAMPLE:
+```
+http://192.81.215.35/exercises
+```
+Response:
+```
+[
+    {
+        "description": "",
+        "exercise_id": "378c42b0-e8e8-4eed-bb83-7fd58b39b2a1",
+        "image": "https://abc.xyz/123.jpg",
+        "category_id": "9ff3ea05-8265-4fdc-9818-f91ef05f19a3",
+        "exercise_name": "Barbell squat"
+    },
+    {
+        "description": "",
+        "exercise_id": "842bcbb9-0e67-42a4-a77e-c453d21e9e1f",
+        "image": "https://abc.xyz/456.jpg",
+        "category_id": "9ff3ea05-8265-4fdc-9818-f91ef05f19a3",
+        "exercise_name": "Calf raises"
+    },
+    {
+        "description": "",
+        "exercise_id": "2079a742-3458-4497-a980-49ce5bfcb83f",
+        "image": "https://abc.xyz/789.jpg",
+        "category_id": "9ff3ea05-8265-4fdc-9818-f91ef05f19a3",
+        "exercise_name": "Cable leg extensions"
+    }
+]
+```
