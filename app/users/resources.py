@@ -55,34 +55,34 @@ class UserRegistration(Resource):
 
 class UserLogin(Resource):
     def post(self):
-        try:
-            data = request.get_json()
-            email = data["email"]
-            password = data["password"]
-            user = db.session.query(User).filter(User.email == email).first()
-            profile = db.session.query(Profile).filter(
-                Profile.user_id==user.user_id).first()
-            if user is not None and flask_bcrypt.check_password_hash(
-                user.password, password
-            ):
-                access_token = create_access_token(
-                    user.user_id,
-                    expires_delta=datetime.timedelta(seconds=86400),
-                )
+        data = request.get_json()
+        email = data["email"]
+        password = data["password"]
+        user = db.session.query(User).filter(User.email == email).first()
+        profile = (
+            db.session.query(Profile)
+            .filter(Profile.user_id == user.user_id)
+            .first()
+        )
+        if user is not None and flask_bcrypt.check_password_hash(
+            user.password, password
+        ):
+            access_token = create_access_token(
+                user.user_id,
+                expires_delta=datetime.timedelta(seconds=86400),
+            )
 
-                response = {
-                    "message": "login successful",
-                    "access_token": access_token,
-                    "user_id": str(user.user_id),
-                    "profile_id": None
-                }
-                if profile is not None:
-                    response["profile_id"] = str(profile.profile_id)
-                return response, 200
-            else:
-                return {"error": "invalid credentials"}, 401
-        except Exception as e:
-            return {"error": str(e)}, 500
+            response = {
+                "message": "login successful",
+                "access_token": access_token,
+                "user_id": str(user.user_id),
+                "profile_id": None,
+            }
+            if profile is not None:
+                response["profile_id"] = str(profile.profile_id)
+            return response, 200
+
+        return {"error": "invalid credentials"}, 401
 
 
 class ProfileResource(Resource):
