@@ -89,7 +89,7 @@ Response:
 ```
 
 ### Update Profile
-`PUT /profile`
+`PUT /profile/<profile_id>`
 
 EXAMPLE:
 ```
